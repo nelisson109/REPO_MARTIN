@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import com.martin.logica.Logica;
@@ -95,18 +96,20 @@ public class PantallaPrincipal extends Application {
         });
         ImageView imagen = new ImageView(getClass().getResource("resources/rugby.jpg").toExternalForm());
         imagen.setPreserveRatio(true);
-        imagen.setFitHeight(50);
+        imagen.setFitHeight(150);
 
         AnchorPane anchorPane = new AnchorPane(tableView);
-        VBox vBox = new VBox(anchorPane, imagen);
-        vBox.getChildren().add(ver);
-        vBox.getChildren().add(borrar);
-        vBox.getChildren().add(añadir);
-        vBox.getChildren().add(modificar);
-        //hola
+        HBox hBox = new HBox(imagen);
 
-        vBox.setSpacing(10);
-        Scene scena = new Scene(vBox, 500, 700);
+        hBox.getChildren().add(ver);
+        hBox.getChildren().add(borrar);
+        hBox.getChildren().add(añadir);
+        hBox.getChildren().add(modificar);
+        hBox.setSpacing(10);
+        VBox vBox = new VBox(anchorPane, hBox);
+
+
+        Scene scena = new Scene(vBox, 600, 500);
         stage.setScene(scena);
         stage.show();
 
