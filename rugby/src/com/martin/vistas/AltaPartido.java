@@ -1,0 +1,127 @@
+package com.martin.vistas;
+
+import com.martin.Utils.Utils;
+import com.martin.logica.Division;
+import com.martin.logica.Partido;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import com.martin.logica.Logica;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
+
+public class AltaPartido extends Stage {
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private TextField tfl;
+    private TextField tfv;
+    private ComboBox <Division> cbdivision;
+    private Division d;
+    private TextField resultado;
+    private Date date;
+    private DatePicker datep;
+    private Button aceptar;
+
+    public AltaPartido(){
+        inicializaVista();
+        aceptar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+              // addPartido();
+                int id = 0;
+                id = id + 1;
+                LocalDate localDate = (LocalDate) datep.getValue();
+                date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                d = (Division) cbdivision.getSelectionModel().getSelectedItem();
+                Partido partido = new Partido(id, tfl.getText(), tfv.getText(), d, resultado.getText(), date);
+                //cambiar la division necesito cambiar el texfield por un comboBox y en la fecha hacer el cambio
+                Logica.getInstance().addPartido(partido);
+                close();
+
+
+            }
+        });
+    }
+
+    public AltaPartido(Partido partido, int indice) {
+        inicializaVista();
+        tfl.setText(partido.getEquipoLocal());
+        tfv.setText(partido.getEquipoVisitante());
+        resultado.setText(partido.getResultado());
+       // cbdivision.getSelectionModel().select(partido.getD());
+     /*   ObservableList<Division> categorias = FXCollections.observableArrayList();
+        categorias.add(Division.PRIMERA);
+        categorias.add(Division.SEGUNDA);
+        categorias.add(Division.TERCERA);
+        cbdivision = new ComboBox(categorias);*/
+
+        aceptar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                int id = 0;
+                id = id + 1;
+                String local = tfl.getText();
+                String visitante = tfv.getText();
+                d = (Division) cbdivision.getSelectionModel().getSelectedItem();
+                String result = resultado.getText();
+                LocalDate localDate = (LocalDate) datep.getValue();
+                date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+              //  date = Utils.convertToLocalDate(datep.getValue());
+                Partido partido1 = new Partido(id, local, visitante, d, result, date);
+                Logica.getInstance().modificarPartido(partido1, indice);
+                close();
+
+            }
+        });
+
+    }
+    public void inicializaVista(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        initModality(Modality.APPLICATION_MODAL);
+        setTitle("Alta Partido");
+        VBox vBox = new VBox();
+        vBox.getChildren().add(new Label("Mete equipo local"));
+        tfl = new TextField();
+        vBox.getChildren().add(tfl);
+        vBox.getChildren().add(new Label("Mete equipo visitante"));
+        tfv = new TextField();
+        vBox.getChildren().add(tfv);
+        vBox.getChildren().add(new Label("Mete marcador"));
+        resultado = new TextField();
+        vBox.getChildren().add(resultado);
+        vBox.getChildren().add(new Label("Mete division"));
+        ObservableList<Division> categorias = FXCollections.observableArrayList();
+        categorias.add(Division.PRIMERA);
+        categorias.add(Division.SEGUNDA);
+        categorias.add(Division.TERCERA);
+        cbdivision = new ComboBox<Division>(categorias);
+       // cbdivision = new ComboBox();
+        vBox.getChildren().add(cbdivision);
+        vBox.getChildren().add(new Label("Mete la fecha del partido"));
+        datep = new DatePicker();
+   /*     datep.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                LocalDate localDate = (LocalDate)datep.getValue();
+                Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            }
+        });*/
+        vBox.getChildren().add(datep);
+        aceptar = new Button("Aceptar");
+        vBox.getChildren().add(aceptar);
+
+        Scene escena = new Scene(vBox, 400, 400);
+        setScene(escena);
+    }
+
+}
