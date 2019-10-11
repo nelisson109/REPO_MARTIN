@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 public class PantallaPrincipal extends Application {
     @Override
     public void start(Stage stage) throws Exception{
-        //comentando
+        //comentando para git
        // Stage stage = new Stage();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
