@@ -10,7 +10,7 @@ public class Logica {
     private static Logica INSTANCE = null;
 
     private Logica() {
-
+//probando git por enesima vez
     }
 
     public static Logica getInstance() {
