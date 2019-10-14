@@ -1,12 +1,19 @@
 package com.martin.logica;
 
+import com.martin.models.Division;
+import com.martin.models.Partido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class Logica {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private ArrayList<Partido> partidos2 = new ArrayList<Partido>();
+    private ObjectInputStream lectura;
+    private ObjectOutputStream escritura;
     private static Logica INSTANCE = null;
 
     private Logica() {
@@ -48,6 +55,24 @@ public class Logica {
         }
         else {
             return partidos;
+        }
+    }
+    public void escribirObjetos(){
+        try {
+            escritura = new ObjectOutputStream(new FileOutputStream("ficheroPartidos.dat", true));
+            escritura.writeObject(partidos);
+        }catch(FileNotFoundException e){
+            e.getMessage();
+        }catch(IOException e){
+            e.getMessage();
+        }finally {
+            try{
+                if(escritura!=null){
+                    escritura.close();
+                }
+            }catch (IOException e){
+                System.out.println("Error al cerrar el fichero");
+            }
         }
     }
 }

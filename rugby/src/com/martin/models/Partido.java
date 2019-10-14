@@ -1,4 +1,4 @@
-package com.martin.logica;
+package com.martin.models;
 
 import java.io.Serializable;
 import java.util.*;
@@ -63,15 +63,7 @@ public class Partido implements Comparable<Partido>, Serializable {
     public void setEquipoVisitante(String equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
     }
-/*
-    public String getD() {
-        return String.valueOf(d);
-    }
 
-    public void setD(Division d) {
-        this.d = d;
-    }
-*/
 
     public Division getD() {
         return d;

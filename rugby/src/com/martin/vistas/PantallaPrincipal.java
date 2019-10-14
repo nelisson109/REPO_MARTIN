@@ -1,7 +1,7 @@
 package com.martin.vistas;
 
-import com.martin.logica.Division;
-import com.martin.logica.Partido;
+import com.martin.models.Division;
+import com.martin.models.Partido;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import com.martin.logica.Logica;
-import com.martin.pruebasAnteriores.VerPartidos;
 
 import java.text.SimpleDateFormat;
 
@@ -37,7 +36,7 @@ public class PantallaPrincipal extends Application {
 
         ComboBox CBfiltro;
         ObservableList<Division> categorias = FXCollections.observableArrayList();
-        categorias.addAll(Division.PRIMERA, Division.SEGUNDA, Division.TERCERA);
+        categorias.addAll(Division.TODO, Division.PRIMERA, Division.SEGUNDA, Division.TERCERA);
         CBfiltro = new ComboBox<Division>(categorias);
         CBfiltro.getSelectionModel().selectFirst();
 

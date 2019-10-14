@@ -1,8 +1,7 @@
 package com.martin.vistas;
 
-import com.martin.Utils.Utils;
-import com.martin.logica.Division;
-import com.martin.logica.Partido;
+import com.martin.models.Division;
+import com.martin.models.Partido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

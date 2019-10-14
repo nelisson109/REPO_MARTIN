@@ -1,6 +1,6 @@
 package com.martin.pruebasAnteriores;
 
-import com.martin.logica.Partido;
+import com.martin.models.Partido;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

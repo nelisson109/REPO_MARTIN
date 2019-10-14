@@ -7,4 +7,5 @@ module rugby {
     exports com.martin.pruebasAnteriores;
     exports com.martin.vistas;
     exports com.martin.Utils;
+    exports  com.martin.models;
 }
