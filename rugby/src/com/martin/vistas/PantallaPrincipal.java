@@ -1,11 +1,15 @@
 package com.martin.vistas;
 
+import com.martin.logica.Division;
 import com.martin.logica.Partido;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,6 +34,20 @@ public class PantallaPrincipal extends Application {
         AnchorPane.setLeftAnchor(tableView,10d);
         AnchorPane.setRightAnchor(tableView,10d);
         AnchorPane.setBottomAnchor(tableView,10d);
+
+        ComboBox CBfiltro;
+        ObservableList<Division> categorias = FXCollections.observableArrayList();
+        categorias.addAll(Division.PRIMERA, Division.SEGUNDA, Division.TERCERA);
+        CBfiltro = new ComboBox<Division>(categorias);
+        CBfiltro.getSelectionModel().selectFirst();
+
+        CBfiltro.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Division d = (Division) CBfiltro.getSelectionModel().getSelectedItem();
+                tableView.setItems(Logica.getInstance().filtrar(d));
+            }
+        });
 
         TableColumn<String, Partido> column1 = new TableColumn<>("equipoLocal");
         TableColumn<String, Partido> column2 = new TableColumn<>("equipoVisitante");
@@ -92,6 +110,7 @@ public class PantallaPrincipal extends Application {
         hBox.getChildren().add(borrar);
         hBox.getChildren().add(añadir);
         hBox.getChildren().add(modificar);
+        hBox.getChildren().add(CBfiltro);
         hBox.setSpacing(10);
         VBox vBox = new VBox(anchorPane, hBox);
 
