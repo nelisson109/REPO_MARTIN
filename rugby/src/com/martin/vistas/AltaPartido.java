@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-//commiteando
+
 public class AltaPartido extends Stage {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private TextField tfl;
@@ -43,7 +43,6 @@ public class AltaPartido extends Stage {
                 date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
                 d = (Division) cbdivision.getSelectionModel().getSelectedItem();
                 Partido partido = new Partido(id, tfl.getText(), tfv.getText(), d, resultado.getText(), date);
-                //cambiar la division necesito cambiar el texfield por un comboBox y en la fecha hacer el cambio
                 Logica.getInstance().addPartido(partido);
                 close();
 
@@ -85,7 +84,7 @@ public class AltaPartido extends Stage {
 
     }
     public void inicializaVista(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
         initModality(Modality.APPLICATION_MODAL);
         setTitle("Alta Partido");
@@ -109,16 +108,19 @@ public class AltaPartido extends Stage {
         vBox.getChildren().add(cbdivision);
         vBox.getChildren().add(new Label("Mete la fecha del partido"));
         datep = new DatePicker();
-   /*     datep.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                LocalDate localDate = (LocalDate)datep.getValue();
-                Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            }
-        });*/
+
         vBox.getChildren().add(datep);
         aceptar = new Button("Aceptar");
+        Button cancelar = new Button("Cancelar");
+        cancelar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                close();
+            }
+        });
         vBox.getChildren().add(aceptar);
+        vBox.getChildren().add(cancelar);
+
 
         Scene escena = new Scene(vBox, 400, 400);
         setScene(escena);

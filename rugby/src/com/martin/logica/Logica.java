@@ -36,4 +36,18 @@ public class Logica {
     public ObservableList<Partido> getPartidos() {
         return partidos;
     }
+    public ObservableList filtrar(Division f){
+        ObservableList<Partido> listaFiltrada = FXCollections.observableArrayList();
+        if(f.equals(Division.PRIMERA) || f.equals(Division.SEGUNDA) || f.equals(Division.TERCERA)){
+            for(int i = 0; i<partidos.size(); i++){
+                if(partidos.get(i).getD().equals(f)){
+                    listaFiltrada.add(partidos.get(i));
+                }
+            }
+            return listaFiltrada;
+        }
+        else {
+            return partidos;
+        }
+    }
 }

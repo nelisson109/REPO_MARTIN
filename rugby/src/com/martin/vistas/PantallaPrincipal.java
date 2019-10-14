@@ -22,8 +22,6 @@ import java.text.SimpleDateFormat;
 public class PantallaPrincipal extends Application {
     @Override
     public void start(Stage stage) throws Exception{
-        //comentando para git
-       // Stage stage = new Stage();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         stage.setTitle("Pantalla Principal");
@@ -48,7 +46,7 @@ public class PantallaPrincipal extends Application {
 
 
         Button añadir = new Button("Añadir partido");
-        Button ver = new Button("Ver lista partidos");
+
         Button modificar = new Button("Modificar");
 
         modificar.setOnAction(new EventHandler<ActionEvent>() {
@@ -74,17 +72,7 @@ public class PantallaPrincipal extends Application {
 
             }
         });
-        ver.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Stage newStage = new VerPartidos();
 
-             /*   newStage.initModality(Modality.APPLICATION_MODAL);
-                newStage.setTitle("Ver lista de partidos");*/
-                newStage.show();
-
-            }
-        });
         Button borrar = new Button("Borrar");
         borrar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -101,7 +89,6 @@ public class PantallaPrincipal extends Application {
         AnchorPane anchorPane = new AnchorPane(tableView);
         HBox hBox = new HBox(imagen);
 
-        hBox.getChildren().add(ver);
         hBox.getChildren().add(borrar);
         hBox.getChildren().add(añadir);
         hBox.getChildren().add(modificar);
