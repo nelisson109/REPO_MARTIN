@@ -26,9 +26,9 @@ import java.io.File;
 public class PantallaPrincipal extends Application {
     @Override
     public void start(Stage stage) throws Exception{
-        File fichero = new File("resources/ficheroPartidos.dat");
-        if(fichero!=null){
-            Logica.getInstance().leerObjetos();
+       File fichero = new File("C:\\Users\\DAM\\Desktop\\ficheroPartidos.dat");
+        if(fichero.exists()){
+            Logica.getInstance().leerObjetos(fichero);
         }
 
         stage.setTitle("Pantalla Principal");
@@ -103,7 +103,8 @@ public class PantallaPrincipal extends Application {
         guardar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Logica.getInstance().escribirObjetos();
+                Logica.getInstance().escribirObjetos(fichero);
+                System.out.println("Salvado");
             }
         });
         ImageView imagen = new ImageView(getClass().getResource("resources/rugby.jpg").toExternalForm());

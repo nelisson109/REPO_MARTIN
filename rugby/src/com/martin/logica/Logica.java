@@ -10,8 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Logica {
+
     private ObservableList<Partido> partidos = FXCollections.observableArrayList();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private ArrayList<Partido> partidos1 = new ArrayList<>();
     private ArrayList<Partido> partidos2 = new ArrayList<Partido>();
     private ObjectInputStream lectura;
     private ObjectOutputStream escritura;
@@ -58,17 +60,19 @@ public class Logica {
             return partidos;
         }
     }
-    public void escribirObjetos(){
+    public void escribirObjetos(File fichero){
+
         try {
           /*  for (Partido p:partidos) {
                 partidos2.add(p);
             }*/
 
             for (int i=0; i<partidos.size(); i++){
-                partidos2.add(partidos.get(i));
+                partidos1.add(partidos.get(i));
+
             }
-            escritura = new ObjectOutputStream(new FileOutputStream("resources/ficheroPartidos.dat", true));
-            escritura.writeObject(partidos2);
+            escritura = new ObjectOutputStream(new FileOutputStream(fichero));
+            escritura.writeObject(partidos1);
         }catch(FileNotFoundException e){
             e.getMessage();
             System.out.println("Error. No se encuentra el fichero");
@@ -84,11 +88,14 @@ public class Logica {
             }
         }
     }
-    public void leerObjetos(){
+    public void leerObjetos(File fichero){
         try {
-            lectura = new ObjectInputStream(new FileInputStream("resources/ficheroPartidos.dat"));
+            lectura = new ObjectInputStream(new FileInputStream(fichero));
             partidos2 = (ArrayList<Partido>) lectura.readObject();
-            for (int i=0; i<partidos2.size(); i++){
+         /*   for (Partido p:partidos2) {
+                partidos.add(p);
+            }*/
+           for (int i=0; i<partidos2.size(); i++){
                 partidos.add(partidos2.get(i));
             }
         }catch(FileNotFoundException e){
