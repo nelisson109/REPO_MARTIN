@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Logica {
+    private ObservableList<Partido> partidos = FXCollections.observableArrayList();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private ArrayList<Partido> partidos2 = new ArrayList<Partido>();
     private ObjectInputStream lectura;
@@ -27,7 +28,7 @@ public class Logica {
         return INSTANCE;
     }
 
-    private ObservableList<Partido> partidos = FXCollections.observableArrayList();
+
 
     public void addPartido(Partido partido) {
         partidos.add(partido);
@@ -59,10 +60,18 @@ public class Logica {
     }
     public void escribirObjetos(){
         try {
-            escritura = new ObjectOutputStream(new FileOutputStream("ficheroPartidos.dat", true));
-            escritura.writeObject(partidos);
+          /*  for (Partido p:partidos) {
+                partidos2.add(p);
+            }*/
+
+            for (int i=0; i<partidos.size(); i++){
+                partidos2.add(partidos.get(i));
+            }
+            escritura = new ObjectOutputStream(new FileOutputStream("resources/ficheroPartidos.dat", true));
+            escritura.writeObject(partidos2);
         }catch(FileNotFoundException e){
             e.getMessage();
+            System.out.println("Error. No se encuentra el fichero");
         }catch(IOException e){
             e.getMessage();
         }finally {
@@ -71,6 +80,33 @@ public class Logica {
                     escritura.close();
                 }
             }catch (IOException e){
+                System.out.println("Error al cerrar el fichero para escritura");
+            }
+        }
+    }
+    public void leerObjetos(){
+        try {
+            lectura = new ObjectInputStream(new FileInputStream("resources/ficheroPartidos.dat"));
+            partidos2 = (ArrayList<Partido>) lectura.readObject();
+            for (int i=0; i<partidos2.size(); i++){
+                partidos.add(partidos2.get(i));
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("No se ha encontrado el fichero para leer");
+            e.getLocalizedMessage();
+        }catch(IOException e){
+            e.getMessage();
+            System.out.println("Error de entrada/salida");
+        }catch(ClassNotFoundException e){
+            System.out.println("No se ha encontrado la clase");
+            e.getLocalizedMessage();
+        }finally {
+            try{
+                if(lectura != null){
+                    lectura.close();
+                }
+            }catch(IOException e){
+                e.getMessage();
                 System.out.println("Error al cerrar el fichero");
             }
         }

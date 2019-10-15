@@ -20,12 +20,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import com.martin.logica.Logica;
 
-import java.text.SimpleDateFormat;
+import java.io.File;
+
 
 public class PantallaPrincipal extends Application {
     @Override
     public void start(Stage stage) throws Exception{
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        File fichero = new File("resources/ficheroPartidos.dat");
+        if(fichero!=null){
+            Logica.getInstance().leerObjetos();
+        }
 
         stage.setTitle("Pantalla Principal");
         TableView tableView = new TableView(Logica.getInstance().getPartidos());
@@ -80,13 +84,8 @@ public class PantallaPrincipal extends Application {
         añadir.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-            /*    Stage newStage = new AltaPartido();
-                newStage.initModality(Modality.APPLICATION_MODAL);
-                newStage.setTitle("Añadir partido");
-                newStage.show();*/
                 AltaPartido altaPartido = new AltaPartido();
                 altaPartido.show();
-
             }
         });
 
@@ -99,6 +98,14 @@ public class PantallaPrincipal extends Application {
                     Logica.getInstance().borrarPartido(indiceBorrar);
             }
         });
+
+        Button guardar = new Button("Guardar");
+        guardar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Logica.getInstance().escribirObjetos();
+            }
+        });
         ImageView imagen = new ImageView(getClass().getResource("resources/rugby.jpg").toExternalForm());
         imagen.setPreserveRatio(true);
         imagen.setFitHeight(150);
@@ -109,6 +116,7 @@ public class PantallaPrincipal extends Application {
         hBox.getChildren().add(borrar);
         hBox.getChildren().add(añadir);
         hBox.getChildren().add(modificar);
+        hBox.getChildren().add(guardar);
         hBox.getChildren().add(CBfiltro);
         hBox.setSpacing(10);
         VBox vBox = new VBox(anchorPane, hBox);
