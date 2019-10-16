@@ -26,7 +26,8 @@ import java.io.File;
 public class PantallaPrincipal extends Application {
     @Override
     public void start(Stage stage) throws Exception{
-       File fichero = new File("C:\\Users\\DAM\\Desktop\\ficheroPartidos.dat");
+       File fichero = new File("ficheroPartidos.dat");
+       //C:\Users\DAM\Desktop\
         if(fichero.exists()){
             Logica.getInstance().leerObjetos(fichero);
         }

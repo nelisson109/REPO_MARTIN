@@ -4,15 +4,12 @@ import com.martin.models.Division;
 import com.martin.models.Partido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Logica {
 
     private ObservableList<Partido> partidos = FXCollections.observableArrayList();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private ArrayList<Partido> partidos1 = new ArrayList<>();
     private ArrayList<Partido> partidos2 = new ArrayList<Partido>();
     private ObjectInputStream lectura;
@@ -63,13 +60,8 @@ public class Logica {
     public void escribirObjetos(File fichero){
 
         try {
-          /*  for (Partido p:partidos) {
-                partidos2.add(p);
-            }*/
-
-            for (int i=0; i<partidos.size(); i++){
-                partidos1.add(partidos.get(i));
-
+            for (Partido p:partidos) {
+                partidos1.add(p);
             }
             escritura = new ObjectOutputStream(new FileOutputStream(fichero));
             escritura.writeObject(partidos1);
@@ -92,11 +84,8 @@ public class Logica {
         try {
             lectura = new ObjectInputStream(new FileInputStream(fichero));
             partidos2 = (ArrayList<Partido>) lectura.readObject();
-         /*   for (Partido p:partidos2) {
+            for (Partido p:partidos2) {
                 partidos.add(p);
-            }*/
-           for (int i=0; i<partidos2.size(); i++){
-                partidos.add(partidos2.get(i));
             }
         }catch(FileNotFoundException e){
             System.out.println("No se ha encontrado el fichero para leer");

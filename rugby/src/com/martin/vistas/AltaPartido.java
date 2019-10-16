@@ -12,15 +12,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.martin.logica.Logica;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
 
 public class AltaPartido extends Stage {
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     private TextField tfl;
     private TextField tfv;
     private ComboBox <Division> cbdivision;
@@ -55,12 +53,6 @@ public class AltaPartido extends Stage {
         tfl.setText(partido.getEquipoLocal());
         tfv.setText(partido.getEquipoVisitante());
         resultado.setText(partido.getResultado());
-       // cbdivision.getSelectionModel().select(partido.getD());
-     /*   ObservableList<Division> categorias = FXCollections.observableArrayList();
-        categorias.add(Division.PRIMERA);
-        categorias.add(Division.SEGUNDA);
-        categorias.add(Division.TERCERA);
-        cbdivision = new ComboBox(categorias);*/
 
         aceptar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -73,7 +65,6 @@ public class AltaPartido extends Stage {
                 String result = resultado.getText();
                 LocalDate localDate = (LocalDate) datep.getValue();
                 date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-              //  date = Utils.convertToLocalDate(datep.getValue());
                 Partido partido1 = new Partido(id, local, visitante, d, result, date);
                 Logica.getInstance().modificarPartido(partido1, indice);
                 close();
@@ -103,7 +94,7 @@ public class AltaPartido extends Stage {
         categorias.add(Division.SEGUNDA);
         categorias.add(Division.TERCERA);
         cbdivision = new ComboBox<Division>(categorias);
-       // cbdivision = new ComboBox();
+
         vBox.getChildren().add(cbdivision);
         vBox.getChildren().add(new Label("Mete la fecha del partido"));
         datep = new DatePicker();

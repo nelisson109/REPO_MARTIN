@@ -17,14 +17,12 @@ public class Partido implements Comparable<Partido>, Serializable {
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.d = d;
-   /*     this.resultadoLocal = resultadoLocal;
-        this.resultadoVisitante = resultadoVisitante;   */
         this.resultado = resultado;
         this.fecha = fecha;
     }
 
     public int compareTo(Partido p) {
-        //Objeto1.getAtributo().compareTo(Objeto2.getAtr());
+
         return fecha.compareTo(p.fecha);
     }
 
