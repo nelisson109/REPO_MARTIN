@@ -43,7 +43,7 @@ public class PantallaPrincipal extends Application {
         ObservableList<Division> categorias = FXCollections.observableArrayList();
         categorias.addAll(Division.TODO, Division.PRIMERA, Division.SEGUNDA, Division.TERCERA);
         CBfiltro = new ComboBox<Division>(categorias);
-        CBfiltro.getSelectionModel().selectFirst();
+        CBfiltro.getSelectionModel().selectFirst();//seleccion por defecto
 
         CBfiltro.setOnAction(new EventHandler<ActionEvent>() {
             @Override
